@@ -1,3 +1,5 @@
+import type { ComponentProps } from 'react';
+import type MaterialIcons from '@react-native-vector-icons/material-icons';
 import { ViewStyle } from 'react-native';
 
 export const ICON_TYPE = {
@@ -7,6 +9,8 @@ export const ICON_TYPE = {
 } as const;
 
 export type IconType = (typeof ICON_TYPE)[keyof typeof ICON_TYPE];
+
+export type MaterialIconName = ComponentProps<typeof MaterialIcons>['name'];
 
 export enum ICONS {
   HOME = 'HomeOutlined',
@@ -25,8 +29,10 @@ export enum ICONS {
   PERSON_OUTLINE = 'person-outline',
 }
 
+export type IconName = ICONS | MaterialIconName;
+
 export type IconProps = {
-  name?: ICONS;
+  name?: IconName;
   type?: IconType;
   size?: number;
   color?: string;

@@ -1,0 +1,15 @@
+export const palette = {
+  background: '#F6F3EC',
+  surface: '#FFFDF8',
+  surfaceMuted: '#EFE8DB',
+  border: '#D8CCBA',
+  textPrimary: '#1F1A14',
+  textSecondary: '#5F5548',
+  textMuted: '#4F4943',
+  accent: '#0F7B6C',
+  accentSoft: '#D9F0EB',
+  warning: '#E39A2D',
+  danger: '#BD4B4B',
+  white: '#FFFFFF',
+  shadow: '#221D17',
+} as const;

@@ -1,15 +1,26 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 
-import { spacing } from '@/app/theme';
-import { homeCategoryItems } from '@/features/home/model/categoryItems';
+import type { CategoryItem } from '@/shared/types/category';
 import { CategoryRail } from '@/shared/ui/CategoryRail';
 
-export function HomeCategories() {
+type HomeCategoriesProps = {
+  items: CategoryItem[];
+  onActionPress?: () => void;
+};
+
+export function HomeCategories({
+  items,
+  onActionPress,
+}: HomeCategoriesProps) {
+  if (!items.length) {
+    return null;
+  }
+
   return (
     <CategoryRail
       actionLabel="See all"
-      items={homeCategoryItems}
+      items={items}
+      onActionPress={onActionPress}
       title="All categories"
     />
   );

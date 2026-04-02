@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
-import type { StyleProp, TextInputProps, ViewStyle } from 'react-native';
+import type { StyleProp, ViewStyle } from 'react-native';
 import type { IconName } from '@/shared/types/icons';
+import type { SearchInputTextProps } from '@/shared/types/searchInput';
 
 export type HeaderProps = {
   title?: string;
@@ -14,19 +15,13 @@ export type HeaderProps = {
   searchPlaceholder?: string;
   searchValue?: string;
   onSearchChangeText?: (text: string) => void;
-  searchInputProps?: Omit<
-    TextInputProps,
-    | 'autoCapitalize'
-    | 'autoCorrect'
-    | 'onChangeText'
-    | 'placeholder'
-    | 'placeholderTextColor'
-    | 'selectionColor'
-    | 'style'
-    | 'value'
-  >;
+  onSearchPress?: () => void;
+  searchEditable?: boolean;
+  searchAutoFocus?: boolean;
+  searchInputProps?: SearchInputTextProps;
   leftContent?: ReactNode;
   rightContent?: ReactNode;
+  showRightPlaceholder?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
   showSearch?: boolean;
 };

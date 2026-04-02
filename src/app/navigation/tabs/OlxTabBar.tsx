@@ -1,6 +1,7 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { palette, spacing, typography } from '@/app/theme';
@@ -37,13 +38,15 @@ const tabConfig = {
 
 export function OlxTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
+  const { i18n, t } = useTranslation();
+  const isArabic = i18n.language.startsWith('ar');
 
   return (
     <View style={[styles.wrapper, { paddingBottom: Math.max(insets.bottom, spacing.md) }]}>
       <View style={styles.container}>
         {state.routes.map((route, index) => {
-          const isFocused = state.index === index;
           const isSellTab = route.name === 'Sell';
+          const isFocused = !isSellTab && state.index === index;
           const options = descriptors[route.key].options;
           const config = tabConfig[route.name as keyof typeof tabConfig];
           const iconName = isFocused ? config.activeIcon : config.inactiveIcon;
@@ -85,8 +88,9 @@ export function OlxTabBar({ state, descriptors, navigation }: BottomTabBarProps)
               accessibilityRole="button"
               accessibilityState={isFocused ? { selected: true } : {}}
               accessibilityLabel={options.tabBarAccessibilityLabel}
-              onLongPress={onLongPress}
-              onPress={onPress}
+              disabled={isSellTab}
+              onLongPress={isSellTab ? undefined : onLongPress}
+              onPress={isSellTab ? undefined : onPress}
               style={styles.tabButton}
               testID={options.tabBarButtonTestID}>
               <View style={styles.iconSlot}>
@@ -108,8 +112,13 @@ export function OlxTabBar({ state, descriptors, navigation }: BottomTabBarProps)
                   />
                 )}
               </View>
-              <Text style={[styles.label, isSellTab && styles.sellLabel]}>
-                {config.label}
+              <Text
+                style={[
+                  styles.label,
+                  isArabic && styles.labelArabic,
+                  isSellTab && styles.sellLabel,
+                ]}>
+                {t(config.label)}
               </Text>
             </Pressable>
           );
@@ -146,7 +155,7 @@ const styles = StyleSheet.create({
     width: 53,
     height: 53,
     borderRadius: 99,
-    backgroundColor: '#FFE16A',
+    backgroundColor: palette.accentWarm,
     alignItems: 'center',
     justifyContent: 'center',
     transform: [{ translateY: -20 }],
@@ -163,6 +172,9 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     letterSpacing: 0.6,
     textAlign: 'center',
+  },
+  labelArabic: {
+    letterSpacing: 0,
   },
   sellLabel: {
     marginTop: -10,

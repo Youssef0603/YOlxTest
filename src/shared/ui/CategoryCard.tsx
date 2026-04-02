@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { palette, spacing, typography } from '@/app/theme';
 import { CategoryCardProps } from '@/shared/types/category';
@@ -10,11 +11,12 @@ export function CategoryCard({
   imageStyle,
   labelStyle,
 }: CategoryCardProps) {
+  const { t } = useTranslation();
   const Container = item.onPress ? Pressable : View;
 
   return (
     <Container
-      accessibilityLabel={item.accessibilityLabel ?? item.label}
+      accessibilityLabel={t(item.accessibilityLabel ?? item.label)}
       accessibilityRole={item.onPress ? 'button' : 'image'}
       onPress={item.onPress}
       style={[styles.container, containerStyle]}>
@@ -23,7 +25,7 @@ export function CategoryCard({
       </View>
       <Text
         style={[styles.label, labelStyle]}>
-        {item.label}
+        {t(item.label)}
       </Text>
     </Container>
   );

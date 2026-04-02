@@ -6,6 +6,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { palette, spacing, typography } from '@/app/theme';
 import { ListingCardProps } from '@/features/listings/model/listing';
@@ -18,12 +19,13 @@ export function ListingCard({
   cardWidth = 220,
   containerStyle,
 }: ListingCardProps) {
+  const { t } = useTranslation();
   const Container = item.onPress ? Pressable : View;
   const imageHeight = Math.round(cardWidth * 0.55);
 
   return (
     <Container
-      accessibilityLabel={item.accessibilityLabel ?? item.title}
+      accessibilityLabel={item.accessibilityLabel ? t(item.accessibilityLabel) : item.title}
       accessibilityRole={item.onPress ? 'button' : 'image'}
       onPress={item.onPress}
       style={[styles.card, { width: cardWidth }, containerStyle]}>
@@ -64,7 +66,7 @@ export function ListingCard({
             {item.location}
           </Text>
           <Text numberOfLines={1} style={styles.metaText}>
-            {item.postedAt}
+            {t(item.postedAt)}
           </Text>
         </View>
       </View>

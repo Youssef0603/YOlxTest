@@ -3,13 +3,14 @@ import {
   Pressable,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { palette, spacing } from '@/app/theme';
 import { HeaderProps } from '@/shared/types/header';
 import { Icon } from '@/shared/ui/Icon';
+import { SearchInput } from '@/shared/ui/SearchInput';
 
 export function Header({
   title,
@@ -23,15 +24,22 @@ export function Header({
   searchPlaceholder = 'Search',
   searchValue,
   onSearchChangeText,
+  onSearchPress,
+  searchEditable = true,
+  searchAutoFocus = false,
   searchInputProps,
   leftContent,
   rightContent,
+  showRightPlaceholder = true,
   containerStyle,
   showSearch = true,
 }: HeaderProps) {
+  const { t } = useTranslation();
   const TitleContainer = onTitlePress ? Pressable : View;
   const RightContainer = onRightPress ? Pressable : View;
-  const hasTopRow = Boolean(leftContent || rightContent || title || rightIconName);
+  const hasTopRow = Boolean(
+    leftContent || rightContent || title || rightIconName || showRightPlaceholder,
+  );
 
   return (
     <View style={[styles.container, containerStyle]}>
@@ -44,7 +52,7 @@ export function Header({
               {titleIconName ? (
                 <Icon color={titleIconColor} name={titleIconName} size={20} />
               ) : null}
-              {title ? <Text style={styles.titleText}>{title}</Text> : null}
+              {title ? <Text style={styles.titleText}>{t(title)}</Text> : null}
               {showTitleChevron ? (
                 <Icon color={palette.textPrimary} name="keyboard-arrow-down" size={28} />
               ) : null}
@@ -57,27 +65,23 @@ export function Header({
             <RightContainer onPress={onRightPress} style={styles.iconButton}>
               <Icon color={rightIconColor} name={rightIconName} size={26} />
             </RightContainer>
-          ) : (
+          ) : showRightPlaceholder ? (
             <View style={styles.iconButton} />
-          )}
+          ) : null
+          }
         </View>
       ) : null}
 
       {showSearch ? (
-        <View style={styles.searchBar}>
-          <Icon color={palette.textPrimary} name="search" size={28} />
-          <TextInput
-            autoCapitalize="none"
-            autoCorrect={false}
-            placeholder={searchPlaceholder}
-            placeholderTextColor={palette.textPlaceholder}
-            selectionColor={palette.textPrimary}
-            style={styles.searchInput}
-            value={searchValue}
-            onChangeText={onSearchChangeText}
-            {...searchInputProps}
-          />
-        </View>
+        <SearchInput
+          autoFocus={searchAutoFocus}
+          editable={searchEditable}
+          inputProps={searchInputProps}
+          onChangeText={onSearchChangeText}
+          onPress={onSearchPress}
+          placeholder={searchPlaceholder}
+          value={searchValue}
+        />
       ) : null}
     </View>
   );
@@ -107,23 +111,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     minWidth: 40,
-  },
-  searchBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.md,
-    minHeight: 58,
-    paddingHorizontal: spacing.lg,
-    borderWidth: 1,
-    borderColor: palette.borderNeutral,
-    borderRadius: 8,
-    backgroundColor: palette.white,
-  },
-  searchInput: {
-    flex: 1,
-    paddingVertical: 0,
-    color: palette.textPrimary,
-    fontSize: 20,
-    lineHeight: 26,
   },
 });

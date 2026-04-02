@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { palette, spacing, typography } from '@/app/theme';
 import { IconName } from '@/shared/types/icons';
@@ -11,10 +12,12 @@ type ListingStatProps = {
 };
 
 export function ListingStat({ iconName, value }: ListingStatProps) {
+  const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
       <Icon color={palette.textSecondary} name={iconName} size={20} />
-      <Text style={styles.value}>{value}</Text>
+      <Text style={styles.value}>{t(value)}</Text>
     </View>
   );
 }

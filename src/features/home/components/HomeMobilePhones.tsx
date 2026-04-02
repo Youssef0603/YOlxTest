@@ -1,13 +1,26 @@
 import React from 'react';
 
-import { mobilePhones } from '@/features/home/model/mobilePhones';
+import type { ListingItem } from '@/features/listings/model/listing';
 import { ListingRail } from '@/features/listings/ui/ListingRail';
 
-export function HomeMobilePhones() {
+type HomeMobilePhonesProps = {
+  items: ListingItem[];
+  onActionPress?: () => void;
+};
+
+export function HomeMobilePhones({
+  items,
+  onActionPress,
+}: HomeMobilePhonesProps) {
+  if (!items.length) {
+    return null;
+  }
+
   return (
     <ListingRail
       actionLabel="See all"
-      items={mobilePhones}
+      items={items}
+      onActionPress={onActionPress}
       title="Mobile Phones"
     />
   );

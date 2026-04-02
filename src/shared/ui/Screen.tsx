@@ -11,7 +11,9 @@ type ScreenProps = PropsWithChildren<{
 export function Screen({ children, scrollable = false }: ScreenProps) {
   if (scrollable) {
     return (
-      <SafeAreaView edges={['top']} style={styles.base}>
+      <SafeAreaView
+        edges={['top']}
+        style={styles.base}>
         <ScrollView
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
@@ -23,7 +25,9 @@ export function Screen({ children, scrollable = false }: ScreenProps) {
   }
 
   return (
-    <SafeAreaView edges={['top']} style={styles.base}>
+    <SafeAreaView
+      edges={['top']}
+      style={styles.base}>
       <View style={styles.content}>{children}</View>
     </SafeAreaView>
   );

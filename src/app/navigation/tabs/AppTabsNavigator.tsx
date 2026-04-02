@@ -18,6 +18,7 @@ function renderTabBar(props: React.ComponentProps<typeof OlxTabBar>) {
 export function AppTabsNavigator() {
   return (
     <Tab.Navigator
+      backBehavior="history"
       initialRouteName="Home"
       screenOptions={{
         headerShown: false,

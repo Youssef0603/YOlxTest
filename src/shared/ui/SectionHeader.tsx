@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { palette, spacing, typography } from '@/app/theme';
 import { SectionHeaderProps } from '@/shared/types/sectionHeader';
@@ -17,14 +18,16 @@ export function SectionHeader({
   eyebrowStyle,
   descriptionStyle,
 }: SectionHeaderProps) {
+  const { t } = useTranslation();
+
   return (
     <View style={[styles.container, containerStyle]}>
       <View style={styles.row}>
         <View style={[styles.content, contentStyle]}>
-          {eyebrow ? <Text style={[styles.eyebrow, eyebrowStyle]}>{eyebrow}</Text> : null}
-          <Text style={[styles.title, titleStyle]}>{title}</Text>
+          {eyebrow ? <Text style={[styles.eyebrow, eyebrowStyle]}>{t(eyebrow)}</Text> : null}
+          <Text style={[styles.title, titleStyle]}>{t(title)}</Text>
           {description ? (
-            <Text style={[styles.description, descriptionStyle]}>{description}</Text>
+            <Text style={[styles.description, descriptionStyle]}>{t(description)}</Text>
           ) : null}
         </View>
 
@@ -33,7 +36,7 @@ export function SectionHeader({
             accessibilityRole={onActionPress ? 'button' : 'text'}
             disabled={!onActionPress}
             onPress={onActionPress}>
-            <Text style={[styles.action, actionStyle]}>{actionLabel}</Text>
+            <Text style={[styles.action, actionStyle]}>{t(actionLabel)}</Text>
           </Pressable>
         ) : null}
       </View>

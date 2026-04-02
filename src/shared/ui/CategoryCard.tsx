@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   label: {
+    alignSelf: 'stretch',
     color: palette.textPrimary,
     fontSize: typography.caption,
     lineHeight: 18,

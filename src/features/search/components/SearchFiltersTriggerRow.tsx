@@ -67,12 +67,14 @@ const styles = StyleSheet.create({
     fontSize: typography.heading,
     lineHeight: 32,
     fontWeight: '700',
+    textAlign: 'left'
   },
   value: {
     color: palette.textSecondary,
     fontSize: typography.heading,
     lineHeight: 28,
     fontWeight: '400',
+    textAlign: 'left'
   },
   actionLabel: {
     color: palette.textPrimary,

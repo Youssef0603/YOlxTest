@@ -70,11 +70,13 @@ const styles = StyleSheet.create({
     color: palette.textPrimary,
     fontSize: typography.heading,
     fontWeight: '700',
+    textAlign: 'left'
   },
   valueLabel: {
     color: palette.textPrimary,
     fontSize: typography.heading,
     fontWeight: '400',
+    textAlign: 'left'
   },
   actionLabel: {
     color: palette.textPrimary,

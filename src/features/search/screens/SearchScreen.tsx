@@ -102,5 +102,6 @@ const styles = StyleSheet.create({
     fontSize: typography.heading + 4,
     lineHeight: 36,
     fontWeight: '400',
+    textAlign: 'left',
   },
 });

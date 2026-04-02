@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     fontSize: typography.heading + 5,
     lineHeight: 38,
     fontWeight: '400',
+    textAlign: 'left'
   },
   actionLabel: {
     color: palette.textPrimary,

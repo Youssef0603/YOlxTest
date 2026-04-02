@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     color: palette.price,
     fontSize: typography.heading - 2,
     fontWeight: '800',
+    textAlign: 'left',
   },
   favoriteButton: {
     alignItems: 'center',
@@ -112,6 +113,7 @@ const styles = StyleSheet.create({
     color: palette.textPrimary,
     fontSize: typography.body +1,
     fontWeight: '400',
+    textAlign: 'left',
   },
   statsRow: {
     flexDirection: 'row',
@@ -127,5 +129,6 @@ const styles = StyleSheet.create({
     fontSize: typography.body + 1,
     lineHeight: 22,
     fontWeight: '400',
+    textAlign: 'left',
   },
 });

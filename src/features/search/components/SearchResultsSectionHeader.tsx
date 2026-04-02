@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     fontSize: typography.title - 2,
     lineHeight: 34,
     fontWeight: '400',
+    textAlign: 'left',
   },
   actionButton: {
     flexDirection: 'row',
@@ -65,5 +66,6 @@ const styles = StyleSheet.create({
     fontSize: typography.body,
     lineHeight: 24,
     fontWeight: '800',
+    textAlign: 'left',
   },
 });

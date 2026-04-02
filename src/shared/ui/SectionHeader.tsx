@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     fontSize: typography.label,
     fontWeight: '700',
     letterSpacing: 1.2,
+    textAlign: 'left',
     textTransform: 'uppercase',
   },
   title: {
@@ -70,16 +71,19 @@ const styles = StyleSheet.create({
     fontSize: typography.title,
     fontWeight: '700',
     lineHeight: 34,
+    textAlign: 'left',
   },
   description: {
     color: palette.textSecondary,
     fontSize: typography.body,
     lineHeight: 22,
+    textAlign: 'left',
   },
   action: {
     color: palette.link,
     fontSize: typography.body,
     fontWeight: '700',
+    textAlign: 'left',
     textDecorationLine: 'underline',
   },
 });

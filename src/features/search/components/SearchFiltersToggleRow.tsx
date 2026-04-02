@@ -45,5 +45,6 @@ const styles = StyleSheet.create({
     fontSize: typography.title - 1,
     lineHeight: 34,
     fontWeight: '400',
+    textAlign: 'left'
   },
 });

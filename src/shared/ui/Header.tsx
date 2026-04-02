@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 28,
     fontWeight: '700',
+    textAlign: 'left',
   },
   iconButton: {
     alignItems: 'center',

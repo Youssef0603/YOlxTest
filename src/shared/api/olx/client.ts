@@ -1,7 +1,8 @@
 import {
+  OLX_ADS_INDEX_SUFFIX,
   OLX_CATEGORIES_ENDPOINT,
   OLX_CATEGORY_FIELDS_ENDPOINT,
-  OLX_LANGUAGE_INDEX_SUFFIX,
+  OLX_LOCATIONS_INDEX_SUFFIX,
   OLX_PUBLIC_SEARCH_AUTHORIZATION_HEADER,
   OLX_SEARCH_ENDPOINT,
 } from '@/shared/api/olx/config';
@@ -9,8 +10,8 @@ import type {
   OlxAd,
   OlxCategory,
   OlxCategoryFieldsResponse,
-  OlxLanguage,
   OlxLocation,
+  OlxSearchHits,
   OlxSearchResponse,
 } from '@/shared/api/olx/types';
 
@@ -50,10 +51,6 @@ async function postMsearch<TDocument>(payload: string) {
   return (await response.json()) as OlxSearchResponse<TDocument>;
 }
 
-function getLanguageIndexSuffix(language: string): OlxLanguage {
-  return language === 'ar' ? 'ar' : 'en';
-}
-
 export async function fetchOlxCategories() {
   if (!categoriesPromise) {
     categoriesPromise = fetchJson<OlxCategory[]>(OLX_CATEGORIES_ENDPOINT);
@@ -79,12 +76,27 @@ export async function searchOlxAds({
   body: Record<string, unknown>;
   language: string;
 }) {
-  const suffix = OLX_LANGUAGE_INDEX_SUFFIX[getLanguageIndexSuffix(language)];
   const payload = `${JSON.stringify({
-    index: `olx-lb-production-ads-${suffix}`,
+    index: `olx-lb-production-ads-${OLX_ADS_INDEX_SUFFIX}`,
   })}\n${JSON.stringify(body)}\n`;
 
   return postMsearch<OlxAd>(payload);
+}
+
+export function getOlxSearchHits<TDocument>(response: OlxSearchResponse<TDocument>) {
+  const firstResponse = response.responses[0];
+
+  if (!firstResponse) {
+    throw new Error('Search response was empty');
+  }
+
+  if (!firstResponse.hits) {
+    throw new Error(
+      firstResponse.error?.reason ?? `Search response failed with ${firstResponse.status}`,
+    );
+  }
+
+  return firstResponse.hits as OlxSearchHits<TDocument>;
 }
 
 export async function fetchOlxLocations({
@@ -98,12 +110,11 @@ export async function fetchOlxLocations({
   level: number;
   size?: number;
 }) {
-  const suffix = OLX_LANGUAGE_INDEX_SUFFIX[getLanguageIndexSuffix(language)];
-  const cacheKey = `${suffix}:${hierarchyExternalId}:${level}:${size}`;
+  const cacheKey = `${language}:${hierarchyExternalId}:${level}:${size}`;
 
   if (!locationsPromises.has(cacheKey)) {
     const payload = `${JSON.stringify({
-      index: `olx-lb-production-locations-${suffix}`,
+      index: `olx-lb-production-locations-${OLX_LOCATIONS_INDEX_SUFFIX}`,
     })}\n${JSON.stringify({
       from: 0,
       query: {
@@ -137,7 +148,7 @@ export async function fetchOlxLocations({
     locationsPromises.set(
       cacheKey,
       postMsearch<OlxLocation>(payload).then(result =>
-        result.responses[0]?.hits.hits.map(hit => hit._source) ?? [],
+        getOlxSearchHits(result).hits.map(hit => hit._source),
       ),
     );
   }

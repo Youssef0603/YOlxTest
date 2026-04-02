@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
     color: palette.price,
     fontSize: typography.body + 1,
     fontWeight: '800',
+    textAlign: 'left'
   },
   favoriteButton: {
     alignItems: 'center',
@@ -143,11 +144,13 @@ const styles = StyleSheet.create({
     color: palette.textPrimary,
     fontSize: typography.heading - 2,
     fontWeight: '400',
+    textAlign: 'left'
   },
   location: {
     color: palette.textSecondary,
     fontSize: typography.body + 2,
     fontWeight: '400',
+    textAlign: 'left'
   },
   verifiedBadge: {
     alignSelf: 'flex-start',
@@ -175,6 +178,7 @@ const styles = StyleSheet.create({
     color: palette.textSecondary,
     fontSize: typography.body + 2,
     fontWeight: '400',
+    textAlign: 'left'
   },
   partnerLogoWrapper: {
     width: 110,

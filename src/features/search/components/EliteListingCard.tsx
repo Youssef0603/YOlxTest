@@ -187,11 +187,13 @@ const styles = StyleSheet.create({
     color: palette.price,
     fontSize: typography.title - 2,
     fontWeight: '800',
+    textAlign: 'left'
   },
   title: {
     color: palette.textPrimary,
     fontSize: typography.heading - 1,
     fontWeight: '400',
+    textAlign: 'left'
   },
   statsRow: {
     flexDirection: 'row',
@@ -214,6 +216,7 @@ const styles = StyleSheet.create({
     fontSize: typography.body + 2,
     lineHeight: 24,
     fontWeight: '400',
+    textAlign: 'left'
   },
   partnerBadge: {
     minWidth: 126,

@@ -122,7 +122,11 @@ export type OlxSearchHits<TDocument> = {
 
 export type OlxSearchResponse<TDocument> = {
   responses: Array<{
-    hits: OlxSearchHits<TDocument>;
+    error?: {
+      reason?: string;
+      type?: string;
+    };
+    hits?: OlxSearchHits<TDocument>;
     status: number;
   }>;
 };

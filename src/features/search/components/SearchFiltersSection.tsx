@@ -34,5 +34,6 @@ const styles = StyleSheet.create({
     color: palette.textPrimary,
     fontSize: typography.heading,
     fontWeight: '700',
+    textAlign: 'left'
   },
 });

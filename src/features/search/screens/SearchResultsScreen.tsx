@@ -194,6 +194,8 @@ export function SearchResultsScreen() {
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
           style={styles.scroll}>
+            <View>
+
           <ScrollView
             contentContainerStyle={styles.filtersContent}
             horizontal
@@ -209,6 +211,7 @@ export function SearchResultsScreen() {
               />
             ))}
           </ScrollView>
+            </View>
 
           {content ? (
             <>
@@ -314,6 +317,7 @@ const styles = StyleSheet.create({
   summaryText: {
     flex: 1,
     fontSize: typography.body,
+    textAlign: 'left'
   },
   summaryPrefix: {
     color: palette.textSecondary,

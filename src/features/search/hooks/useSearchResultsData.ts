@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import { searchOlxAds } from '@/shared/api/olx/client';
+import { getOlxSearchHits, searchOlxAds } from '@/shared/api/olx/client';
 import { resolveOlxLanguage } from '@/shared/api/olx/search';
 import { useDebouncedValue } from '@/shared/hooks/useDebouncedValue';
 import {
@@ -69,8 +69,9 @@ export function useSearchResultsData({
           return;
         }
 
-        const hits = result.responses[0]?.hits.hits.map(hit => hit._source) ?? [];
-        const totalCount = result.responses[0]?.hits.total?.value ?? 0;
+        const searchHits = getOlxSearchHits(result);
+        const hits = searchHits.hits.map(hit => hit._source);
+        const totalCount = searchHits.total?.value ?? 0;
 
         if (definition.listingVariant === 'elite') {
           setContent({

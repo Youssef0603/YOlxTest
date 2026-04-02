@@ -40,5 +40,6 @@ const styles = StyleSheet.create({
     fontSize: typography.body + 2,
     lineHeight: 28,
     fontWeight: '700',
+    textAlign: 'left',
   },
 });

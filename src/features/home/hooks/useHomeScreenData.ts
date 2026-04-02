@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import { fetchOlxCategories, searchOlxAds } from '@/shared/api/olx/client';
+import {
+  fetchOlxCategories,
+  getOlxSearchHits,
+  searchOlxAds,
+} from '@/shared/api/olx/client';
 import { OLX_ROOT_LOCATION_EXTERNAL_ID } from '@/shared/api/olx/config';
 import { resolveOlxLanguage } from '@/shared/api/olx/search';
 import type { CategoryItem } from '@/shared/types/category';
@@ -114,6 +118,10 @@ export function useHomeScreenData(language: string): HomeScreenData {
           return;
         }
 
+        const propertyHits = getOlxSearchHits(propertiesResponse).hits;
+        const carHits = getOlxSearchHits(carsResponse).hits;
+        const mobileHits = getOlxSearchHits(mobilesResponse).hits;
+
         const homeCategories = categories
           .filter(category => category.level === 0)
           .sort((left, right) => left.displayPriority - right.displayPriority)
@@ -131,32 +139,32 @@ export function useHomeScreenData(language: string): HomeScreenData {
 
         setData({
           apartmentsAndVillasForSale:
-            propertiesResponse.responses[0]?.hits.hits.map(hit =>
+            propertyHits.map(hit =>
               mapOlxAdToHomeListing({
                 ad: hit._source,
                 category: SEARCH_RESULTS_CATEGORIES.APARTMENTS_VILLAS_FOR_SALE,
                 language: languageKey,
               }),
-            ) ?? [],
+            ),
           carsForSale:
-            carsResponse.responses[0]?.hits.hits.map(hit =>
+            carHits.map(hit =>
               mapOlxAdToHomeListing({
                 ad: hit._source,
                 category: SEARCH_RESULTS_CATEGORIES.CARS_FOR_SALE,
                 language: languageKey,
               }),
-            ) ?? [],
+            ),
           categories: homeCategories,
           error: null,
           isLoading: false,
           mobilePhones:
-            mobilesResponse.responses[0]?.hits.hits.map(hit =>
+            mobileHits.map(hit =>
               mapOlxAdToHomeListing({
                 ad: hit._source,
                 category: SEARCH_RESULTS_CATEGORIES.MOBILE_PHONES,
                 language: languageKey,
               }),
-            ) ?? [],
+            ),
         });
       })
       .catch(fetchError => {

@@ -33,5 +33,6 @@ const styles = StyleSheet.create({
     fontSize: typography.caption + 1,
     lineHeight: 18,
     fontWeight: '700',
+    textAlign: 'left',
   },
 });

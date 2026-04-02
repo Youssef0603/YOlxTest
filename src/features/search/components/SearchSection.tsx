@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     fontSize: typography.heading,
     lineHeight: 28,
     fontWeight: '800',
+    textAlign: 'left',
   },
   content: {
     backgroundColor: palette.white,

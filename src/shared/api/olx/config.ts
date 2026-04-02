@@ -16,7 +16,8 @@ export const OLX_ROOT_LOCATION_EXTERNAL_ID = '0-1';
 
 export const OLX_ROOT_LOCATION_LABEL = 'Lebanon';
 
-export const OLX_LANGUAGE_INDEX_SUFFIX = {
-  ar: 'ar',
-  en: 'en',
-} as const;
+// The public MSearch backend currently serves the bilingual ad/location documents
+// from the `-en` indices. The `ads-ar` index is not available.
+export const OLX_ADS_INDEX_SUFFIX = 'en';
+
+export const OLX_LOCATIONS_INDEX_SUFFIX = 'en';
